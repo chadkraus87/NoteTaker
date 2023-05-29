@@ -34,7 +34,17 @@ router.post('/notes', (req, res) => {
         console.error(err);
         return res.status(500).json({ error: 'Failed to save note.' });
       }
-      res.json(newNote);
+
+      // Read the updated notes data and send it as a response
+      fs.readFile(path.join(__dirname, '../db/db.json'), 'utf8', (err, updatedData) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ error: 'Failed to read updated notes data.' });
+        }
+
+        const updatedNotes = JSON.parse(updatedData);
+        res.json(updatedNotes);
+      });
     });
   });
 });
