@@ -1,7 +1,8 @@
-const uniqid = require('uniqid');
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 const fs = require('fs');
 const path = require('path');
+const uniqid = require('uniqid');
 
 // Route to get all saved notes
 router.get('/notes', (req, res) => {
