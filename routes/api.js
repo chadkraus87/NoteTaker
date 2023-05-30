@@ -1,49 +1,64 @@
-const express = require('express');
-const router = express.Router();
+const uniqid = require('uniqid');
+const router = require('express').Router();
 const fs = require('fs');
 const path = require('path');
-const uniqid = require('uniqid');
 
-// Middleware to parse JSON request body
-router.use(express.json());
+const handleErrorResponse = (res, errorMessage, statusCode = 500) => {
+  console.log(errorMessage);
+  res.status(statusCode).json({ error: errorMessage });
+};
 
-// Route to get all saved notes
-router.get('/notes', (req, res) => { // Update the route path to '/'
-    fs.readFile(path.join(__dirname, '../db/db.json'), 'utf8', (err, data) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: 'Failed to read notes data.' });
-      }
-      const notes = JSON.parse(data);
-      res.json(notes);
-    });
-  });
-
-// Route to save a new note
-router.post('/notes', (req, res) => {
-  const newNote = req.body;
-  newNote.id = uniqid(); // Assign a unique id to the new note
-
+router.get('/notes', (req, res) => {
   fs.readFile(path.join(__dirname, '../db/db.json'), 'utf8', (err, data) => {
     if (err) {
-      console.error(err);
-      return res.status(500).json({ error: 'Failed to read notes data.' });
+      console.log(err);
+      handleErrorResponse(res, 'Failed to read notes.');
+    } else {
+      const notes = JSON.parse(data)
+      res.send(notes);
     }
-    try {
-      const notes = JSON.parse(data);
-      notes.push(newNote);
+  });
+});
 
+router.post('/notes', (req, res) => {
+  fs.readFile(path.join(__dirname, '../db/db.json'), 'utf8', (err, data) => {
+    if (err) {
+      console.log(err);
+      handleErrorResponse(res, 'Failed to read notes.');
+    } else {
+      const notes = JSON.parse(data);
+      const newNote = {
+        id: uniqid(),
+        title: req.body.title,
+        text: req.body.text,
+      };
+      notes.push(newNote);
       fs.writeFile(path.join(__dirname, '../db/db.json'), JSON.stringify(notes), (err) => {
         if (err) {
-          console.error(err);
-          return res.status(500).json({ error: 'Failed to save note.' });
+          handleErrorResponse(res, 'Failed to save note.');
+        } else {
+          res.redirect('/notes');
         }
-
-        res.json(newNote);
       });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Failed to parse notes data.' });
+    }
+  });
+});
+
+router.delete('/notes/:id', (req, res) => {
+  const noteId = req.params.id;
+  fs.readFile(path.join(__dirname, '../db/db.json'), 'utf8', (err, data) => {
+    if (err) {
+      handleErrorResponse(res, 'Failed to read notes.');
+    } else {
+      let notes = JSON.parse(data);
+      notes = notes.filter((note) => note.id !== noteId);
+      fs.writeFile(path.join(__dirname, '../db/db.json'), JSON.stringify(notes), (err) => {
+        if (err) {
+          handleErrorResponse(res, 'Failed to delete note.');
+        } else {
+          res.status(200).json(notes);
+        }
+      });
     }
   });
 });
