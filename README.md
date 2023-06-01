@@ -5,7 +5,7 @@ An application used to take and store notes using Express.js.
 
 ## Description
 
-This note-taking program is a simple and user-friendly tool designed to help users take and organize notes efficiently. It provides a seamless note-taking experience with an intuitive interface, allowing users to write, save, and delete notes. This application is hosted via Heroku and built using Express.js.
+This note-taking program is a simple and user-friendly tool designed to help users take and organize notes efficiently. It provides a seamless note-taking experience with an intuitive interface, allowing users to write, save, and delete notes. This application is hosted via Heroku and built using Express.js. For each note taken, they are given a unique identifier using the Uniqid package.
 
 [GitHub Repository](https://github.com/chadkraus87/NoteTaker)
 
@@ -34,7 +34,7 @@ The Note Taker application is designed to meet the needs of small business owner
 
 ## License
 
-This project is licensed under the MIT License license.
+This project is licensed under the MIT License.
 
 ## Contributing
 
@@ -45,6 +45,8 @@ This project is licensed under the MIT License license.
 [Express.js Routing](https://expressjs.com/en/guide/routing.html)
 
 [Getting Started - Heroku](https://devcenter.heroku.com/articles/heroku-cli)
+
+[Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs#deploy-the-app)
 
 [Writing Middleware](https://expressjs.com/en/guide/writing-middleware.html)
 
