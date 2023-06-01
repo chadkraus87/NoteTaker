@@ -24,6 +24,8 @@ This note-taking program is a simple and user-friendly tool designed to help use
 
 ## Installation
 
+The Express package is required to run this application. To install the package, please visit [NPM Express documentation](https://www.npmjs.com/package/express)
+
 The Uniqid package is required to run this application. To install the package, please visit [NPM Uniqid documentation](https://www.npmjs.com/package/uniqid).
 
 The Nodemon package is an optional package install, but will assist with testing. To install the package, please visit [Nodemon documentation](https://www.npmjs.com/package/nodemon).
