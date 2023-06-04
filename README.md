@@ -9,6 +9,8 @@ This note-taking program is a simple and user-friendly tool designed to help use
 
 [GitHub Repository](https://github.com/chadkraus87/NoteTaker)
 
+[Deployed Application](https://mysterious-sands-82995.herokuapp.com/)
+
 ![Landing Page](./public/assets/images/landingpage.png)
 
 ![Notes Page](./public/assets/images/notes.png)
